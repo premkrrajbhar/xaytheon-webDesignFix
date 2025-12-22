@@ -1,4 +1,4 @@
-# Xaytheon: Complete Platform Overview
+
 
 ## What is Xaytheon?
 
