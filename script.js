@@ -470,6 +470,9 @@ function addInteractiveEffects() {
 
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize theme toggle
+    initThemeToggle();
+    
     // If the 3D canvas exists, we're on the home page; otherwise, dashboard-only page.
     const hasThree = !!document.getElementById('three-canvas');
     if (hasThree) {
@@ -483,6 +486,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize the mini 3D viewer on github.html if present
     initMiniViewer();
 });
+
+// ===================== Theme Toggle =====================
+function initThemeToggle() {
+    const toggle = document.getElementById('theme-toggle');
+    const saved = localStorage.getItem('xaytheon:theme') || 'light';
+    
+    // Apply saved theme immediately
+    document.documentElement.setAttribute('data-theme', saved);
+    updateThemeIcon(saved);
+    
+    if (toggle) {
+        toggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('xaytheon:theme', next);
+            updateThemeIcon(next);
+            console.log(`🌓 Theme switched to: ${next}`);
+        });
+    }
+}
+
+function updateThemeIcon(theme) {
+    const icon = document.querySelector('.theme-icon');
+    if (icon) {
+        icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+}
 
 // Add some console instructions for developers
 console.log(`

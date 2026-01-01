@@ -23,6 +23,39 @@
     font-display: swap;
 }
 
+/* Theme Variables */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --text-muted: rgba(0, 0, 0, 0.7);
+    --border-color: rgba(0, 0, 0, 0.1);
+    --border-color-strong: rgba(0, 0, 0, 0.2);
+    --card-bg: #ffffff;
+    --navbar-bg: rgba(255, 255, 255, 0.95);
+    --loading-bg: rgba(255, 255, 255, 0.95);
+    --input-bg: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.06);
+    --accent-color: #0ea5e9;
+}
+
+[data-theme="dark"] {
+    --bg-primary: #0f0f0f;
+    --bg-secondary: #1a1a1a;
+    --text-primary: #f0f0f0;
+    --text-secondary: #b0b0b0;
+    --text-muted: rgba(255, 255, 255, 0.7);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --border-color-strong: rgba(255, 255, 255, 0.2);
+    --card-bg: #1e1e1e;
+    --navbar-bg: rgba(15, 15, 15, 0.95);
+    --loading-bg: rgba(15, 15, 15, 0.95);
+    --input-bg: #2a2a2a;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --accent-color: #38bdf8;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -35,10 +68,11 @@ html {
 
 body {
     font-family: 'Researcher', 'OriginTech', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #ffffff;
-    color: #000000;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     overflow-x: hidden;
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Apply Eightgon font on the dedicated dashboard page */
@@ -55,7 +89,7 @@ body.eightgon-page {
     width: 100%;
     height: 100%;
     z-index: -1; /* force behind all page content */
-    background: #ffffff;
+    background: var(--bg-primary);
 }
 
 /* Ensure page content (including footer) sits above the background canvas */
@@ -83,7 +117,7 @@ body.eightgon-page {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--loading-bg);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -95,8 +129,8 @@ body.eightgon-page {
 .loader {
     width: 50px;
     height: 50px;
-    border: 3px solid rgba(0, 0, 0, 0.1);
-    border-top: 3px solid #000000;
+    border: 3px solid var(--border-color);
+    border-top: 3px solid var(--text-primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin-bottom: 20px;
@@ -113,7 +147,7 @@ body.eightgon-page {
 
 .loading-screen p {
     font-size: 1.2em;
-    color: #000000;
+    color: var(--text-primary);
     font-weight: 500;
 }
 
@@ -130,9 +164,9 @@ body.eightgon-page {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--navbar-bg);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--border-color);
     z-index: 100;
     transition: all 0.3s ease;
 }
@@ -163,7 +197,7 @@ body.eightgon-page {
 .logo-text {
     font-size: 1.8em;
     font-weight: bold;
-    color: #000000;
+    color: var(--text-primary);
     letter-spacing: 2px;
 }
 
@@ -175,14 +209,14 @@ body.eightgon-page {
 
 .nav-link {
     text-decoration: none;
-    color: #000000;
+    color: var(--text-primary);
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
 }
 
 .nav-link:hover {
-    color: #333333;
+    color: var(--text-secondary);
 }
 
 .nav-link::after {
@@ -192,7 +226,7 @@ body.eightgon-page {
     left: 0;
     width: 0;
     height: 2px;
-    background: #000000;
+    background: var(--text-primary);
     transition: width 0.3s ease;
 }
 
@@ -205,9 +239,9 @@ body.eightgon-page {
 .user-button { background: transparent; border: none; border-radius: 999px; padding: 4px 6px; cursor: pointer; font: inherit; display: inline-flex; align-items: center; gap: 6px; }
 .user-avatar { width: 28px; height: 28px; border-radius: 50%; display: inline-block; object-fit: cover; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
 .user-email { margin-right: 6px; display:none; }
-.user-dropdown { position: absolute; right: 0; top: calc(100% + 6px); background: #fff; border: 1px solid rgba(0,0,0,0.15); border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); padding: 6px; min-width: 160px; z-index: 200; }
-.dropdown-item { width: 100%; text-align: left; padding: 8px 10px; border: none; background: transparent; border-radius: 8px; cursor: pointer; }
-.dropdown-item:hover { background: rgba(0,0,0,0.05); }
+.user-dropdown { position: absolute; right: 0; top: calc(100% + 6px); background: var(--card-bg); border: 1px solid var(--border-color-strong); border-radius: 10px; box-shadow: 0 10px 25px var(--shadow-color); padding: 6px; min-width: 160px; z-index: 200; }
+.dropdown-item { width: 100%; text-align: left; padding: 8px 10px; border: none; background: transparent; border-radius: 8px; cursor: pointer; color: var(--text-primary); }
+.dropdown-item:hover { background: var(--border-color); }
 
 /* Align nav items cleanly */
 .nav-menu { align-items: center; }
@@ -223,7 +257,7 @@ body.eightgon-page {
 .bar {
     width: 25px;
     height: 3px;
-    background: #000000;
+    background: var(--text-primary);
     margin: 3px 0;
     transition: 0.3s;
 }
@@ -293,7 +327,7 @@ body.eightgon-page {
 
 /* Light blue accent with subtle glow */
 .accent-glow {
-    color: #0ea5e9; /* light blue */
+    color: var(--accent-color);
     text-shadow: 0 0 6px rgba(14, 165, 233, 0.4), 0 0 12px rgba(14, 165, 233, 0.2);
     font-weight: 600;
 }
@@ -343,28 +377,28 @@ body.eightgon-page {
 
 .btn-secondary {
     background: transparent;
-    color: #000000;
-    border: 2px solid #000000;
+    color: var(--text-primary);
+    border: 2px solid var(--text-primary);
 }
 
 .btn-secondary:hover {
-    background: #000000;
-    color: #ffffff;
+    background: var(--text-primary);
+    color: var(--bg-primary);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px var(--shadow-color);
 }
 
 .btn-outline {
     background: transparent;
-    color: #000000;
-    border: 1px solid #000000;
+    color: var(--text-primary);
+    border: 1px solid var(--text-primary);
     padding: 10px 20px;
     font-size: 0.9em;
 }
 
 .btn-outline:hover {
-    background: #000000;
-    color: #ffffff;
+    background: var(--text-primary);
+    color: var(--bg-primary);
 }
 
 /* Section Styles */
@@ -447,10 +481,12 @@ section {
 .github-form input[type="text"],
 .github-form input[type="password"] {
     padding: 12px 14px;
-    border: 1px solid rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color-strong);
     border-radius: 8px;
     outline: none;
     font-size: 0.95em;
+    background: var(--input-bg);
+    color: var(--text-primary);
 }
 
 /* Community form fields */
@@ -459,14 +495,16 @@ section {
 .github-form input[type="url"],
 .github-form input[type="date"] {
     padding: 12px 14px;
-    border: 1px solid rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color-strong);
     border-radius: 8px;
     outline: none;
     font-size: 0.95em;
+    background: var(--input-bg);
+    color: var(--text-primary);
 }
 
 .github-form input:focus {
-    border-color: #000;
+    border-color: var(--accent-color);
 }
 
 .github-form .btn { grid-column: span 2; }
@@ -500,11 +538,11 @@ section {
 
 .card {
     grid-column: span 6;
-    background: #fff;
-    border: 1px solid rgba(0,0,0,0.1);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    box-shadow: 0 10px 25px var(--shadow-color);
 }
 
 .card.profile-card { grid-column: span 5; }
@@ -514,7 +552,7 @@ section {
 
 .card-header {
     padding: 14px 16px;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: baseline;
     gap: 10px;
@@ -526,7 +564,7 @@ section {
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    border: 1px solid rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
     margin-right: 14px;
 }
 
@@ -545,13 +583,13 @@ section {
 .profile-stats label { font-size: 0.85em; opacity: 0.7; }
 
 .repo-list { display: grid; gap: 12px; }
-.repo-item { padding: 12px; border: 1px solid rgba(0,0,0,0.08); border-radius: 10px; }
+.repo-item { padding: 12px; border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-secondary); }
 .repo-name { font-weight: 700; }
 .repo-meta { display: flex; gap: 12px; font-size: 0.9em; opacity: 0.8; margin-top: 6px; }
 .repo-desc { margin-top: 6px; }
 
 .activity-list { list-style: none; display: grid; gap: 12px; }
-.activity-item { padding: 10px 12px; border: 1px solid rgba(0,0,0,0.08); border-radius: 10px; }
+.activity-item { padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-secondary); }
 .activity-time { opacity: 0.7; font-size: 0.85em; }
 
 .contrib-svg {
@@ -647,12 +685,12 @@ section {
         left: -100%;
         top: 70px;
         flex-direction: column;
-        background-color: rgba(255, 255, 255, 0.95);
+        background-color: var(--navbar-bg);
         backdrop-filter: blur(10px);
         width: 100%;
         text-align: center;
         transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 27px var(--shadow-color);
         padding: 20px 0;
     }
 
@@ -901,4 +939,50 @@ section {
 
 .contact-method:hover::before {
     opacity: 1;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: transparent;
+    border: 2px solid var(--border-color-strong);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin-left: 15px;
+}
+
+.theme-toggle:hover {
+    background: var(--border-color);
+    transform: scale(1.1);
+}
+
+.theme-icon {
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+/* Dark mode specific adjustments */
+[data-theme="dark"] .title-main {
+    background: linear-gradient(45deg, #ffffff, #b0b0b0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+[data-theme="dark"] .title-logo-img {
+    filter: drop-shadow(0 2px 6px rgba(255,255,255,0.15)) brightness(1.1);
+}
+
+[data-theme="dark"] .logo-img {
+    filter: brightness(1.2);
+}
+
+[data-theme="dark"] .navbar.scrolled {
+    background: var(--navbar-bg);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
