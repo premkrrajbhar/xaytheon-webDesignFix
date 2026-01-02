@@ -1,83 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XAYTHEON - Collaborative Innovation Platform</title>
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css">
+    <title>Xaytheon — GitHub Analytics & Open-Source Discovery</title>
+    <meta name="description"
+        content="Xaytheon helps developers track GitHub contributions, discover trending repositories, and explore the open-source ecosystem with powerful analytics and insights.">
+    <meta name="keywords"
+        content="Xaytheon, GitHub Analytics, Open Source, Developer Tools, Trending Projects, Contributions Tracker, GitHub Dashboard, Open-Source Discovery">
+
+    <meta property="og:title" content="Xaytheon — GitHub Analytics & Open-Source Discovery">
+    <meta property="og:description"
+        content="Explore trending GitHub projects, track your contributions, and visualize open-source data with Xaytheon.">
+    <meta property="og:url" content="https://saatvik-gt.github.io/xaytheon/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Xaytheon">
+
+    <!-- ====== Favicon ====== -->
+    <link rel="icon" href="assets/favicon/xaytheon-favicon.ico" type="image/ico">
+
+    <!-- ====== Bootstrap 5 CSS ====== -->
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+
+
+
+
+
+    <!-- ====== Custom CSS ====== -->
+    <link rel="stylesheet" href="styles/style.css">
+
     <!-- Supabase SDK & auth bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.44.4/dist/umd/supabase.min.js"></script>
-    <script defer src="auth.js"></script>
-</head>
-<body>
-    <!-- 3D Background Canvas -->
-    <div class="canvas-container">
-        <canvas id="three-canvas"></canvas>
-        
-        <!-- Loading Screen -->
-        <div id="loading-screen" class="loading-screen">
-            <div class="loader"></div>
-            <p>Initializing XAYTHEON...</p>
-        </div>
-    </div>
+    <script defer src="scripts/auth.js"></script>
 
-    <!-- Main Content -->
-    <div class="content">
-        <!-- Navigation -->
-        <nav class="navbar">
-            <div class="nav-container">
-                <a class="logo" href="#home" aria-label="XAYTHEON home">
-                    <img class="logo-img" src="assets/logo/thelogo.png" alt="XAYTHEON logo" />
+    <!-- ====== Fontawesome ====== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Xaytheon",
+    "url": "https://saatvik-gt.github.io/xaytheon/",
+    "description": "Xaytheon helps developers track GitHub contributions, discover trending repositories, and explore the open-source ecosystem with powerful analytics and insights.",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Xaytheon"
+    },
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://yourdomain.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+    }
+}
+</script>
+
+</head>
+
+<body>
+
+    <!-- ======================= Header Section Start Here ======================= -->
+    <header>
+        <!-- ============ Navbar Section Start Here ============  -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="assets/images/xaytheonText.png" alt="XAYTHEON logo"
+                        class="d-inline-block align-text-top navbarLogo">
                 </a>
-                <ul class="nav-menu">
-                    <li><a class="nav-link" href="github.html">GitHub Dashboard</a></li>
-                    <li><a class="nav-link" href="community.html">Community Highlights</a></li>
-                    <li><a class="nav-link" href="explore.html">Explore by Topic</a></li>
-                    <li><a class="nav-link" href="contributions.html">Contributions</a></li>
-                    <li id="auth-area"></li>
-                </ul>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto align-items-center mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="pages/github.html">Github Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/community.html">Community Highlights</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/explore.html">Explore By Topic</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pages/contributions.html">Contributions</a>
+                        </li>
+
+                        <li class="nav-item d-flex align-items-center">
+                            <a href="pages/login.html" class="btn navbarSignInBtn">Sign in</a>
+                        </li>
+
+
+                    </ul>
+
+                </div>
             </div>
         </nav>
 
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    <span class="title-line">Welcome to</span>
-                    <span class="title-main title-main--logo">
-                        <img src="assets/logo/thelogo.png" onerror="this.onerror=null;this.src='assets/logo/thelogo.png'" alt="XAYTHEON" class="title-logo-img" />
-                    </span>
-                    <span class="title-subtitle">Where <span class="accent-glow">INNOVATION</span> Meets <span class="accent-glow">COLLAB</span>ORATION</span>
-                </h1>
-                
-            </div>
-        </section>
+        <!-- ============ Navbar Section End Here ============  -->
 
-        <!-- Gated content placeholder -->
-        <section data-requires-auth style="display:none; padding-top:0;">
-            <div class="container" style="text-align:center; margin-top:-40px;">
-                <div class="muted">You are signed in. Future advanced features will appear here.</div>
-            </div>
-        </section>
+        <!-- ============ Hero Section End Here ============  -->
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <!-- ====== Hero Left Side Content ====== -->
+                <div class="col-12 col-md-7 heroSectionLeftContainer">
+                    <img src="assets/images/xaytheonText.png" class="img-fluid">
+                    <h1 class="heroSectionHeading">Where <span class="accent-glow">Open Source</span> <br>Intelligence
+                        Meets <span class="accent-glow">COLLAB</span>ORATION</h1>
+                    <p> Exolore Github like Never before with Xaytheon</p>
+                    <a href="pages/github.html">
+                        <button class="btn btn-primary">Connect Github <i
+                                class="fa-brands fa-github ms-2 fs-4"></i></button>
+                    </a>
+                </div>
 
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-brand">
-                        <span class="logo-text">XAYTHEON</span>
-                        <p>Empowering the next generation of innovators</p>
+                <!-- ====== Hero Left Side Canvas ====== -->
+                <div class="col-12 col-md-5 text-end d-none d-md-block">
+                    <!-- <img src="assets/images/heroImg.png" alt="developer meet each other"> -->
+                    <!-- 3D Background Canvas -->
+                    <div class="canvas-container">
+                        <canvas id="three-canvas"></canvas>
+
+                        <!-- Loading Screen -->
+                        <div id="loading-screen" class="loading-screen">
+                            <div class="loader"></div>
+                            <p>Initializing XAYTHEON...</p>
+                        </div>
                     </div>
-                    <span class="footer-label">XAYTHEON</span>
                 </div>
-                <div class="footer-bottom">
-                    <p>&copy; 2025 XAYTHEON. All rights reserved.</p>
+
+
+            </div>
+        </div>
+        <!-- ============ Hero Section End Here ============  -->
+
+    </header>
+
+
+    <!-- ======================= Header Section End Here ======================= -->
+
+
+    <!-- ======================= Main Section Start Here ======================= -->
+    <main>
+        <section>
+            <div class="container">
+                <h2 class="text-center mb-5">What You Can Do with <span class="accent-glow">Xaytheon</span></h2>
+                <div class="row">
+                    <!-- Card 1 -->
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">
+                        <div class="card border-0 featureCard">
+                            <div class="card-body text-center">
+                                <h5 class="card-title iconTitle"><i class="fa-brands fa-github featureCardIcon"></i>
+                                </h5>
+                                <h2 class="card-subtitle mb-2 featureCardHeading">Analyze Your GitHub</h2>
+                                <p class="card-text featureCardText">Track contributions, repositories, and activity
+                                    with visual insights.</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">
+                        <div class="card border-0 featureCard">
+                            <div class="card-body text-center">
+                                <h5 class="card-title iconTitle"><i class="fa-solid fa-fire featureCardIcon"></i></h5>
+                                <h2 class="card-subtitle mb-2 featureCardHeading">Discover Trending Projects</h2>
+                                <p class="card-text featureCardText">Find fast-growing repositories by language, topic,
+                                    and time.</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">
+                        <div class="card border-0 featureCard">
+                            <div class="card-body text-center">
+                                <h5 class="card-title iconTitle"><i class="fa-solid fa-compass featureCardIcon"></i>
+                                </h5>
+                                <h2 class="card-subtitle mb-2 featureCardHeading">Explore by Topics</h2>
+                                <p class="card-text featureCardText">Navigate GitHub through topics and related
+                                    technologies.</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">
+                        <div class="card border-0 featureCard">
+                            <div class="card-body text-center">
+                                <h5 class="card-title iconTitle"><i class="fa-solid fa-code-branch featureCardIcon"></i>
+                                </h5>
+                                <h2 class="card-subtitle mb-2 featureCardHeading">Track Your Contributions</h2>
+                                <p class="card-text featureCardText">Build your open-source portfolio and measure your
+                                    impact.</p>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </footer>
-    </div>
+        </section>
+
+
+        <section class="xaytheonWork">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12 col-md-6 githubOctodexContainer d-none d-md-block">
+                        <img src="assets/images/githubOctodex.png" alt="Github octodex" class="img-fluid">
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <h2 class="sansSerifHeading">How Xaytheon Works</h2>
+
+                        <div class="stepContainer">
+                            <div>
+                                <h3>Connect Your GitHub</h3>
+                                <p>Sign in securely to fetch your public GitHub data and personalize your experience.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="stepContainer">
+                            <div>
+                                <h3>Analyze & Discover</h3>
+                                <p>Visualize your contributions, explore trending repositories, and navigate topics
+                                    intelligently.</p>
+                            </div>
+                        </div>
+
+                        <div class="stepContainer">
+                            <div>
+                                <h3>Contribute & Grow</h3>
+                                <p>Find the right projects, contribute confidently, and track your open-source impact.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h2 class="sansSerifHeading">Open Source at Its Core</h2>
+
+                        <div class="stepContainer">
+                            <div>
+                                <h3>Recognized by SWoC</h3>
+                                <p>Selected for Social Winter of Code, supporting real-world open-source contributions.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="stepContainer">
+                            <div>
+                                <h3>Developer-First Approach</h3>
+                                <p>Crafted with developers in mind—clean UI, meaningful insights, and powerful <tools
+                                        class=""></tools>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="stepContainer">
+                            <div>
+                                <h3>Open & Transparent</h3>
+                                <p>Fully open-source, encouraging collaboration, learning, and innovation.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-md-6 githubOctodexContainer xaytheonRotate">
+                        <img src="assets/images/xaytehonrepo.png" alt="xaytheon repo" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="box text-center">
+                    <h2>Start Explore Today</h2>
+                    <a href="pages/login.html"><button class="btn btn-primary">Connect Github Now</button></a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <h2>XAYTHEON</h2>
+                    <p>Powering the future of the open-source ecosystem.</p>
+                </div>
+                <div class="col-12 col-md-4">
+                    <p>Importants links</p>
+                    <ul>
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="pages/github.html">Github Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="pages/community.html">Community Highlights</a>
+                        </li>
+                        <li>
+                            <a href="pages/explore.html">Explore by Topics</a>
+                        </li>
+                        <li>
+                            <a href="pages/contributions.html">Contributions</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4">
+                    <p>Contributions</p>
+                    <ul>
+                        <li>
+                            <a href="https://github.com/Saatvik-GT/xaytheon">Github</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Saatvik-GT/xaytheon/issues">Find a Bug?</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <hr>
+            <p class="text-center mb-0">© 2025 XAYTHEON. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ======================= Main Section End Here ======================= -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ====== Bootstrap 5 JS ====== -->
+    <script src="scripts/bootstrap.bundle.min.js"></script>
 
     <!-- Three.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -85,7 +388,9 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <!-- GLTF Loader -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
     <!-- Our custom script -->
-    <script src="script.js"></script>
+    <script src="scripts/script.js"></script>
 </body>
+
 </html>
